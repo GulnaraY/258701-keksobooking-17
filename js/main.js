@@ -2,12 +2,12 @@
 
 var BOOKING_OBJECTS_COUNT = 8;
 var HOUSING_TYPES = ['place', 'flat', 'house', 'bungalo'];
-var MIN_X = 0;
-var MAX_X = 1200;
-var MIN_Y = 130;
-var MAX_Y = 630;
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
+var MIN_X = 0 + PIN_WIDTH / 2;
+var MAX_X = 1200 - PIN_WIDTH / 2;
+var MIN_Y = 130;
+var MAX_Y = 630;
 var map = document.querySelector('.map');
 var pin = document.querySelector('#pin').content.querySelector('.map__pin');
 
@@ -24,14 +24,21 @@ var getRandomNumber = function (minValue, maxValue) {
 };
 
 var getAvatar = function (index) {
-  return 'img/avatars/user0' + index + '.png';
+  index = index + 1;
+  if (index >= 0 && index <= 9) {
+    index = '0' + index;
+  }
+  return 'img/avatars/user' + index + '.png';
 };
 
 var createAdvertisment = function (avatarNumber) {
   var advertisment = {
-    author: {avatar: getAvatar(avatarNumber + 1)},
+    author: {avatar: getAvatar(avatarNumber)},
     offer: {type: getRandomElement(HOUSING_TYPES)},
-    location: {x: getRandomNumber(MIN_X, MAX_X), y: getRandomNumber(MIN_Y, MAX_Y)}
+    location: {
+      x: getRandomNumber(MIN_X, MAX_X),
+      y: getRandomNumber(MIN_Y, MAX_Y)
+    }
   };
   return advertisment;
 };
@@ -39,8 +46,8 @@ var createAdvertisment = function (avatarNumber) {
 var renderPin = function (similarItem) {
   var pinTemplate = pin.cloneNode(true);
   pinTemplate.querySelector('img').src = similarItem.author.avatar;
-  pinTemplate.style = 'left: ' + (similarItem.location.x + PIN_WIDTH / 2) + 'px; top: ' + (similarItem.location.y + PIN_HEIGHT) + 'px;';
-  pinTemplate.querySelector('img').alt = similarItem.offer.type;
+  pinTemplate.style = 'left: ' + (similarItem.location.x - PIN_WIDTH / 2) + 'px; top: ' + (similarItem.location.y - PIN_HEIGHT) + 'px;';
+  pinTemplate.querySelector('img').alt = 'Заголовок';
   return pinTemplate;
 };
 
