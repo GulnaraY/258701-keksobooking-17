@@ -19,6 +19,7 @@ var addressInput = document.querySelector('#address');
 
 var activateMap = function () {
   map.classList.remove('map--faded');
+  mainPin.removeEventListener('click', onMapPinClick);
 };
 
 var getRandomElement = function (elements) {
@@ -82,22 +83,24 @@ var enableForm = function () {
   form.classList.remove('ad-form--disabled');
 };
 
-disableFormElements();
-
-mainPin.addEventListener('click', function () {
-  swowSimilarOffers();
-  activateMap();
-  enableForm();
-  enableFormElements();
-});
-
 var setPinPosition = function () {
   var mainPinX = parseInt(mainPin.style.left, 10) + Math.round(MAIN_PIN_WIDTH / 2);
   var mainPinY = parseInt(mainPin.style.top, 10) + Math.round(MAIN_PIN_HEIGHT / 2);
   addressInput.value = mainPinX + ', ' + mainPinY;
 };
 
+setPinPosition();
+disableFormElements();
+
+var onMapPinClick = function () {
+  swowSimilarOffers();
+  activateMap();
+  enableForm();
+  enableFormElements();
+};
+
+mainPin.addEventListener('click', onMapPinClick);
+
 mainPin.addEventListener('mouseup', function () {
   setPinPosition();
 });
-
