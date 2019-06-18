@@ -15,6 +15,7 @@ var pin = document.querySelector('#pin').content.querySelector('.map__pin');
 var formFieldsets = document.querySelectorAll('.ad-form fieldset');
 var mainPin = document.querySelector('.map__pin--main');
 var form = document.querySelector('.ad-form');
+var addressInput = document.querySelector('#address');
 
 var activateMap = function () {
   map.classList.remove('map--faded');
@@ -90,7 +91,6 @@ mainPin.addEventListener('click', function () {
   enableFormElements();
 });
 
-var addressInput = document.querySelector('#address');
 var setPinPosition = function () {
   var mainPinX = parseInt(mainPin.style.left, 10) + Math.round(MAIN_PIN_WIDTH / 2);
   var mainPinY = parseInt(mainPin.style.top, 10) + Math.round(MAIN_PIN_HEIGHT / 2);
