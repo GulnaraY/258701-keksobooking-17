@@ -88,26 +88,19 @@ var onFormTypeClick = function (evt) {
   compareTypeAndPrice(evt.target.value);
 };
 
-typeInput.addEventListener('click', onFormTypeClick);
+typeInput.addEventListener('input', onFormTypeClick);
 
-var setTimeIn = function (time) {
+var setTimeInOut = function (time) {
   timeInInput.value = time;
-};
-
-var setTimeOut = function (time) {
   timeOutInput.value = time;
 };
 
 var onFormTimeClick = function (evt) {
-  if (evt.target === timeInInput) {
-    setTimeOut(evt.target.value);
-  } else {
-    setTimeIn(evt.target.value);
-  }
+  setTimeInOut(evt.target.value);
 };
 
-timeInInput.addEventListener('click', onFormTimeClick);
-timeOutInput.addEventListener('click', onFormTimeClick);
+timeInInput.addEventListener('input', onFormTimeClick);
+timeOutInput.addEventListener('input', onFormTimeClick);
 
 var disableFormElements = function () {
   for (var j = 0; j < formFieldsets.length; j++) {
