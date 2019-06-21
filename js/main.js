@@ -6,14 +6,14 @@ var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 var MIN_X = PIN_WIDTH / 2;
 var MAX_X = 1200 - PIN_WIDTH / 2;
-var MIN_Y = 130;
-var MAX_Y = 630;
 var MAIN_PIN_WIDTH = 65;
 var MAIN_PIN_HEIGHT = 87;
 var MIN_X_MAIN = 0;
 var MAX_X_MAIN = 1200 - MAIN_PIN_WIDTH;
-var MIN_Y_MAIN = 130 - MAIN_PIN_HEIGHT;
-var MAX_Y_MAIN = 630 - MAIN_PIN_HEIGHT;
+var MIN_Y_MAIN = 130;
+var MAX_Y_MAIN = 630;
+var MIN_Y = 130 + MAIN_PIN_HEIGHT;
+var MAX_Y = 630 + MAIN_PIN_HEIGHT;
 var map = document.querySelector('.map');
 var pin = document.querySelector('#pin').content.querySelector('.map__pin');
 var typeInput = document.querySelector('#type');
@@ -124,12 +124,12 @@ var enableForm = function () {
 
 var setAddress = function (left, top) {
   var mainPinX = parseInt(left, 10) + Math.round(MAIN_PIN_WIDTH / 2);
-  var mainPinY = parseInt(top, 10) + Math.round(MAIN_PIN_HEIGHT / 2);
+  var mainPinY = parseInt(top, 10) + Math.round(MAIN_PIN_HEIGHT);
   addressInput.value = mainPinX + ', ' + mainPinY;
 };
 
 setAddress(mainPin.style.left, mainPin.style.top);
-disableFormElements(mainPin.style.top);
+disableFormElements();
 
 var onPinMouseDown = function (evt) {
   evt.preventDefault();
