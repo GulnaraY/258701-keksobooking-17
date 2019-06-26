@@ -1,9 +1,9 @@
 'use strict';
+
 /**
  * Работа с формой и элементами формы
  * Зависит от модуля util.js, исплользует функцию window.util.setAddress для установки адреса при неактивной форме
  */
-
 (function () {
   var typeInput = document.querySelector('#type');
   var priceInput = document.querySelector('#price');
