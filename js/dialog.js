@@ -3,7 +3,6 @@
 /**
  * Взаимодействие с картой, перетаскивание метки
  */
-
 (function () {
   var isMapActive = false;
   var MIN_X_MAIN = 0;

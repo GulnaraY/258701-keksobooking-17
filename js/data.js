@@ -1,10 +1,10 @@
 'use strict';
+
 /**
  * Создает случайную метку
  * Функция window.createAdvertisment доступна для других модулей
  * Зависит от модуля util.js, использует widdow.utils.getRandomNumber, window.util.getRandomElement
  */
-
 (function () {
   var PIN_WIDTH = 50;
   var MIN_X = PIN_WIDTH / 2;
@@ -24,8 +24,8 @@
 
   /**
    * генерирует данные для случайной метки
-   *@param {Number} avatarNumber - порядковый номер аватара
-   *@return {Object} advertisment - сгенерированный объект с данными метки для отрисовки
+   *@param {number} avatarNumber - порядковый номер аватара
+   *@return {object} advertisment - сгенерированный объект с данными метки для отрисовки
    */
 
   window.createAdvertisment = function (avatarNumber) {

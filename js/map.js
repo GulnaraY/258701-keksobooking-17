@@ -1,10 +1,10 @@
 'use strict';
+
 /*
 * Отрисовка похожих меток на карте
 * функция window.showSimilarОffers доступна для других модулей
 * зависит от модуля data.js. Исплользует его для генерации данных для случайных меток
  */
-
 (function () {
   var BOOKING_OBJECTS_COUNT = 8;
   var PIN_WIDTH = 50;
@@ -19,6 +19,7 @@
     pinTemplate.querySelector('img').alt = 'Заголовок';
     return pinTemplate;
   };
+
   /**
   * отрисовка похожих пересонажей
   */

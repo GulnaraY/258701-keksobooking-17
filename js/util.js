@@ -1,32 +1,35 @@
 'use strict';
-/**
- * Утилиты, хелперы
- */
 
+/**
+* Утилиты, хелперы
+*/
 (function () {
   window.util = {
+
     /**
-     * Отдает случайный элемент массива
-     * @param {Array} elements - массив из которого нужно получить случайный элемент
-     * @return {*} - случайный элемент массива
-     */
+    * Отдает случайный элемент массива
+    * @param {array} elements - массив из которого нужно получить случайный элемент
+    * @return {any} - случайный элемент массива
+    */
     getRandomElement: function (elements) {
       return elements[Math.floor(Math.random() * elements.length)];
     },
-    /**
-     * Отдает случайное число из заданного промежутка
-     * @param {Number} minValue - минимальное значение
-     * @param {Number} maxValue - максимальное значение
-     */
 
+    /**
+    * Отдает случайное число из заданного промежутка
+    * @param {number} minValue - минимальное значение
+    * @param {number} maxValue - максимальное
+    * @return {number} случайное число
+    */
     getRandomNumber: function (minValue, maxValue) {
       return Math.random() * (maxValue - minValue) + minValue;
     },
+
     /**
-     * Записывает значение координаты острого конца пина  в поле адрес
-     * @param {*} left - координата по x верхнего левого края пина
-     * @param {*} top - координата по y верхнего левого края пина
-     */
+    * Записывает значение координаты острого конца пина  в поле адрес
+    * @param {any} left - координата по x верхнего левого края пина
+    * @param {any} top - координата по y верхнего левого края пина
+    */
     setAddress: function (left, top) {
       var MAIN_PIN_WIDTH = 65;
       var MAIN_PIN_HEIGHT = 87;
