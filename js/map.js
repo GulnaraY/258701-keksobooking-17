@@ -1,34 +1,91 @@
 'use strict';
 
-/*
-* Отрисовка похожих меток на карте
-* функция window.showSimilarОffers доступна для других модулей
-* зависит от модуля data.js. Исплользует его для генерации данных для случайных меток
+/**
+ * Взаимодействие с картой, перетаскивание метки
  */
 (function () {
-  var BOOKING_OBJECTS_COUNT = 8;
-  var PIN_WIDTH = 50;
-  var PIN_HEIGHT = 70;
+  var isMapActive = false;
+  var MIN_X_MAIN = 0;
+  var MAIN_PIN_WIDTH = 65;
+  var MAX_X_MAIN = 1200 - MAIN_PIN_WIDTH;
+  var MIN_Y_MAIN = 130;
+  var MAX_Y_MAIN = 630;
+  var form = document.querySelector('.ad-form');
+  var formFieldsets = form.querySelectorAll('fieldset');
   var map = document.querySelector('.map');
-  var pin = document.querySelector('#pin').content.querySelector('.map__pin');
+  var mainPin = document.querySelector('.map__pin--main');
 
-  var renderPin = function (similarItem) {
-    var pinTemplate = pin.cloneNode(true);
-    pinTemplate.querySelector('img').src = similarItem.author.avatar;
-    pinTemplate.style = 'left: ' + (similarItem.location.x - PIN_WIDTH / 2) + 'px; top: ' + (similarItem.location.y - PIN_HEIGHT) + 'px;';
-    pinTemplate.querySelector('img').alt = 'Заголовок';
-    return pinTemplate;
+  var activateMap = function () {
+    map.classList.remove('map--faded');
+    isMapActive = true;
+  };
+  var onPinMouseDown = function (evt) {
+    evt.preventDefault();
+    var pinCoords = {
+      x: evt.clientX,
+      y: evt.clientY
+    };
+
+    var onPinMouseMove = function (evtMove) {
+      evtMove.preventDefault();
+
+      var diff = {
+        x: pinCoords.x - evtMove.clientX,
+        y: pinCoords.y - evtMove.clientY
+      };
+
+      pinCoords = {
+        x: evtMove.clientX,
+        y: evtMove.clientY
+      };
+
+      var coordX = mainPin.offsetLeft - diff.x;
+      var coordY = mainPin.offsetTop - diff.y;
+
+      if (coordX > MAX_X_MAIN) {
+        coordX = MAX_X_MAIN;
+      } else if (coordX < MIN_X_MAIN) {
+        coordX = MIN_X_MAIN;
+      }
+
+      if (coordY > MAX_Y_MAIN) {
+        coordY = MAX_Y_MAIN;
+      } else if (coordY < MIN_Y_MAIN) {
+        coordY = MIN_Y_MAIN;
+      }
+
+      mainPin.style.left = coordX + 'px';
+      mainPin.style.top = coordY + 'px';
+      window.util.setAddress(coordX, coordY);
+    };
+
+    var enableFormElements = function () {
+      for (var j = 0; j < formFieldsets.length; j++) {
+        formFieldsets[j].disabled = false;
+      }
+    };
+
+    var enableForm = function () {
+      form.classList.remove('ad-form--disabled');
+    };
+    var onPinMouseUp = function (evtUp) {
+      evtUp.preventDefault();
+      document.removeEventListener('mousemove', onPinMouseMove);
+      document.removeEventListener('mouseup', onPinMouseUp);
+
+      if (!isMapActive) {
+        window.swowSimilarOffers();
+        activateMap();
+        enableForm();
+        enableFormElements();
+      }
+
+      window.util.setAddress(mainPin.style.left, mainPin.style.top);
+    };
+
+    document.addEventListener('mousemove', onPinMouseMove);
+    document.addEventListener('mouseup', onPinMouseUp);
   };
 
-  /**
-  * отрисовка похожих пересонажей
-  */
-  window.swowSimilarOffers = function () {
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < BOOKING_OBJECTS_COUNT; i++) {
-      var similarOffer = window.createAdvertisment(i);
-      fragment.appendChild(renderPin(similarOffer));
-    }
-    map.appendChild(fragment);
-  };
+  mainPin.addEventListener('mousedown', onPinMouseDown);
 })();
