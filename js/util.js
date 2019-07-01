@@ -37,6 +37,15 @@
       var mainPinX = parseInt(left, 10) + Math.round(MAIN_PIN_WIDTH / 2);
       var mainPinY = parseInt(top, 10) + Math.round(MAIN_PIN_HEIGHT);
       addressInput.value = mainPinX + ', ' + mainPinY;
+    },
+    /**
+     * обработка ошибки при работе с сервером
+     */
+    onError: function () {
+      var mainBlock = document.querySelector('main');
+      var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+
+      mainBlock.appendChild(errorTemplate);
     }
   };
 })();

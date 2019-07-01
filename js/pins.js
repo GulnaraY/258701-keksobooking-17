@@ -3,10 +3,9 @@
 /*
 * Отрисовка похожих меток на карте
 * функция window.showSimilarОffers доступна для других модулей
-* зависит от модуля data.js. Исплользует его для генерации данных для случайных меток
- */
+* зависит от модуля backend.js. Исплользует его для генерации данных для случайных меток
+*/
 (function () {
-  var BOOKING_OBJECTS_COUNT = 8;
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;
   var map = document.querySelector('.map');
@@ -24,11 +23,17 @@
   * отрисовка похожих меток
   */
   window.swowSimilarOffers = function () {
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < BOOKING_OBJECTS_COUNT; i++) {
-      var similarOffer = window.createAdvertisment(i);
-      fragment.appendChild(renderPin(similarOffer));
-    }
-    map.appendChild(fragment);
+    var onSuccess = function (pins) {
+      var fragment = document.createDocumentFragment();
+      for (var i = 0; i < pins.length; i++) {
+        var similarOffer = pins[i];
+        fragment.appendChild(renderPin(similarOffer));
+      }
+      map.appendChild(fragment);
+    };
+
+    window.backend.load(onSuccess, window.util.onError);
   };
+
+
 })();
