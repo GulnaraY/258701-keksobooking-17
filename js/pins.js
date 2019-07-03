@@ -24,6 +24,7 @@
   */
   window.swowSimilarOffers = function () {
     var onSuccess = function (pins) {
+      window.util.errorTemplate.style.display = 'none';
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < pins.length; i++) {
         var similarOffer = pins[i];
@@ -34,6 +35,4 @@
 
     window.backend.load(onSuccess, window.util.onError);
   };
-
-
 })();

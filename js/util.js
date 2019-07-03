@@ -4,6 +4,17 @@
 * Утилиты, хелперы
 */
 (function () {
+
+  var mainBlock = document.querySelector('main');
+  var error = document.querySelector('#error').content.querySelector('.error');
+  var errorTemplate = error.cloneNode(true);
+  var errorButton = errorTemplate.querySelector('.error__button');
+  mainBlock.appendChild(errorTemplate);
+  errorButton.addEventListener('click', function () {
+    window.swowSimilarOffers();
+  });
+  errorTemplate.style.display = 'none';
+
   window.util = {
 
     /**
@@ -39,13 +50,14 @@
       addressInput.value = mainPinX + ', ' + mainPinY;
     },
     /**
-     * обработка ошибки при работе с сервером
-     */
+    * обработка ошибки при работе с сервером
+    */
     onError: function () {
-      var mainBlock = document.querySelector('main');
-      var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-
-      mainBlock.appendChild(errorTemplate);
-    }
+      errorTemplate.style.display = 'block';
+    },
+    /**
+     * Ссылка на дом-элемент с ошибкой
+     */
+    errorTemplate: errorTemplate,
   };
 })();
