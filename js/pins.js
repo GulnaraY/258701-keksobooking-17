@@ -2,7 +2,7 @@
 
 /*
 * Отрисовка похожих меток на карте
-* функция window.showSimilarОffers доступна для других модулей
+* объект window.pins доступен для других модулей
 * зависит от модуля backend.js. Исплользует его для генерации данных для случайных меток
 */
 (function () {
@@ -19,20 +19,33 @@
     return pinTemplate;
   };
 
-  /**
-  * отрисовка похожих меток
-  */
-  window.swowSimilarOffers = function () {
-    var onSuccess = function (pins) {
-      window.util.errorTemplate.style.display = 'none';
+  window.pins = {
+    /**
+     *Количество отрисовываемых похожих меток
+     */
+    PINS_QUANTITY: 5,
+    /**
+     *Отрисовка похожих меток
+     * @param {Array} pins - данные для отрисовки меток
+     */
+    showSimilarOffers: function (pins) {
       var fragment = document.createDocumentFragment();
-      for (var i = 0; i < pins.length; i++) {
-        var similarOffer = pins[i];
+      pins.forEach(function (value) {
+        var similarOffer = value;
         fragment.appendChild(renderPin(similarOffer));
-      }
+      });
       map.appendChild(fragment);
-    };
-
-    window.backend.load(onSuccess, window.util.onError);
+    },
+    /**
+     * Удаление отрисованных меток похожих объявлений
+     */
+    removePins: function () {
+      var renderedPins = map.querySelectorAll('.map__pin');
+      var similarPins = Array.from(renderedPins).slice(1);
+      similarPins.forEach(function (value) {
+        map.removeChild(value);
+      });
+    }
   };
+
 })();

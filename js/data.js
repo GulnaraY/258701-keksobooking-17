@@ -1,42 +1,29 @@
 'use strict';
 
 /**
- * Создает случайную метку
- * Функция window.createAdvertisment доступна для других модулей
- * Зависит от модуля util.js, использует widdow.utils.getRandomNumber, window.util.getRandomElement
+ * Работа с данными, полученными от сервера
+ * объект window.data доступен для других модулей
+ * Зависит от модулей pins.js, ulil.js, backend.js, data.js
+ *
  */
 (function () {
-  var PIN_WIDTH = 50;
-  var MIN_X = PIN_WIDTH / 2;
-  var MAX_X = 1200 - PIN_WIDTH / 2;
-  var MAIN_PIN_HEIGHT = 87;
-  var HOUSING_TYPES = ['palace', 'flat', 'house', 'bungalo'];
-  var MIN_Y = 130 + MAIN_PIN_HEIGHT;
-  var MAX_Y = 630 + MAIN_PIN_HEIGHT;
-
-  var getAvatar = function (index) {
-    index = index + 1;
-    if (index >= 0 && index <= 9) {
-      index = '0' + index;
+  window.data = {
+    /**
+     * содержит данные, загруженные с сервера
+     */
+    serverData: {
+    },
+    /**
+     * Обработка данных, полученных от сервера
+     */
+    loadData: function () {
+      var onSuccess = function (data) {
+        window.data.serverData = data;
+        var renderingPins = data.slice(0, window.pins.PINS_QUANTITY);
+        window.pins.showSimilarOffers(renderingPins);
+        window.util.errorTemplate.style.display = 'none';
+      };
+      window.backend.load(onSuccess, window.util.onError);
     }
-    return 'img/avatars/user' + index + '.png';
-  };
-
-  /**
-   * генерирует данные для случайной метки
-   *@param {number} avatarNumber - порядковый номер аватара
-   *@return {object} advertisment - сгенерированный объект с данными метки для отрисовки
-   */
-
-  window.createAdvertisment = function (avatarNumber) {
-    var advertisment = {
-      author: {avatar: getAvatar(avatarNumber)},
-      offer: {type: window.util.getRandomElement(HOUSING_TYPES)},
-      location: {
-        x: window.util.getRandomNumber(MIN_X, MAX_X),
-        y: window.util.getRandomNumber(MIN_Y, MAX_Y)
-      }
-    };
-    return advertisment;
   };
 })();
