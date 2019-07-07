@@ -1,12 +1,17 @@
 'use strict';
 /**
- * Фильтрация данных
- * Зависит от модуля pins.js
- */
+* Фильтрация данных
+* Зависит от модуля pins.js
+*/
 
 (function () {
   var housingTypeFilter = document.querySelector('#housing-type');
 
+  /**
+  * Отдает отфильтрованные данные
+  * @param {object} filterValue - значение, по которому должны фильтроваться данные
+  * @return {array} - массив с отфильтрованными данными
+  */
   var getFilteredData = function (filterValue) {
     var filteredPins = window.data.serverData.filter(function (value) {
       if (filterValue !== 'any') {
@@ -15,17 +20,22 @@
         return true;
       }
     });
-
     return filteredPins.slice(0, window.pins.PINS_QUANTITY);
   };
 
+  /**
+  * Отрисовка отфильтрованных данных. Удаляет старые данные. Получает новые. Отрисовывает новые.
+  * @param {object} filterValue - значение, по которому фильтруются данные
+  */
   var showFilteredAdvertisments = function (filterValue) {
     window.pins.removePins();
     var filteredData = getFilteredData(filterValue);
     window.pins.showSimilarOffers(filteredData);
   };
 
-  housingTypeFilter.addEventListener('change', function (evt) {
+  var onHousingTypeChange = function (evt) {
     showFilteredAdvertisments(evt.target.value);
-  });
+  };
+
+  housingTypeFilter.addEventListener('change', onHousingTypeChange);
 })();

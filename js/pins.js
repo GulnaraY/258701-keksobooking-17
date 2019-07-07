@@ -41,7 +41,10 @@
      */
     removePins: function () {
       var renderedPins = map.querySelectorAll('.map__pin');
-      var similarPins = Array.from(renderedPins).slice(1);
+      var mainPin = map.querySelector('.map__pin--main');
+      var similarPins = Array.from(renderedPins).filter(function (x) {
+        return x !== mainPin;
+      });
       similarPins.forEach(function (value) {
         map.removeChild(value);
       });
