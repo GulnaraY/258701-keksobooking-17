@@ -2,6 +2,7 @@
 
 /**
  * Взаимодействие с картой, перетаскивание метки
+ * Зависит от модуля data.js
  */
 (function () {
   var isMapActive = false;
@@ -74,7 +75,7 @@
       document.removeEventListener('mouseup', onPinMouseUp);
 
       if (!isMapActive) {
-        window.swowSimilarOffers();
+        window.data.loadData();
         activateMap();
         enableForm();
         enableFormElements();
