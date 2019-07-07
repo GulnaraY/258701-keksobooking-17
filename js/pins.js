@@ -40,11 +40,8 @@
      * Удаление отрисованных меток похожих объявлений
      */
     removePins: function () {
-      var renderedPins = map.querySelectorAll('.map__pin');
-      var mainPin = map.querySelector('.map__pin--main');
-      var similarPins = Array.from(renderedPins).filter(function (x) {
-        return x !== mainPin;
-      });
+      var renderedPins = map.querySelectorAll('.map__pin:not(.map__pin--main)');
+      var similarPins = Array.from(renderedPins);
       similarPins.forEach(function (value) {
         map.removeChild(value);
       });

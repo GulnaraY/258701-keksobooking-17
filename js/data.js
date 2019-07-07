@@ -19,14 +19,7 @@
     loadData: function () {
       var onSuccess = function (data) {
         window.data.serverData = data;
-        var filterValue = 'any';
-        var renderingPins = data.filter(function (value) {
-          if (filterValue !== 'any') {
-            return value.offer.type === filterValue;
-          } else {
-            return true;
-          }
-        }).slice(0, window.pins.PINS_QUANTITY);
+        var renderingPins = window.getFilteredData('any');
         window.pins.showSimilarOffers(renderingPins);
         window.util.errorTemplate.style.display = 'none';
       };

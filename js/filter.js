@@ -1,9 +1,10 @@
 'use strict';
+
 /**
 * Фильтрация данных
 * Зависит от модуля pins.js
+* метод window.getFilteredData доступен для других модулей
 */
-
 (function () {
   var housingTypeFilter = document.querySelector('#housing-type');
 
@@ -12,7 +13,7 @@
   * @param {object} filterValue - значение, по которому должны фильтроваться данные
   * @return {array} - массив с отфильтрованными данными
   */
-  var getFilteredData = function (filterValue) {
+  window.getFilteredData = function (filterValue) {
     var filteredPins = window.data.serverData.filter(function (value) {
       if (filterValue !== 'any') {
         return value.offer.type === filterValue;
@@ -29,7 +30,7 @@
   */
   var showFilteredAdvertisments = function (filterValue) {
     window.pins.removePins();
-    var filteredData = getFilteredData(filterValue);
+    var filteredData = window.getFilteredData(filterValue);
     window.pins.showSimilarOffers(filteredData);
   };
 
