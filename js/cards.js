@@ -31,11 +31,13 @@
   var setFeatures = function (currentOffer) {
     var featuresNode = blockTemplate.querySelector('.popup__features');
     var currentFeatures = currentOffer.offer.features;
-    var featuresToDelete = allHouseFeatures.filter(function (element) {
-      return (!currentFeatures.includes(element));
-    });
-    featuresToDelete.forEach(function (element) {
-      featuresNode.removeChild(featuresNode.querySelector('.' + featuresMap[element]));
+
+    allHouseFeatures.forEach(function (element) {
+      if (currentFeatures.includes(element)) {
+        featuresNode.querySelector('.' + featuresMap[element]).style.display = 'inline-block';
+      } else {
+        featuresNode.querySelector('.' + featuresMap[element]).style.display = 'none';
+      }
     });
   };
 
