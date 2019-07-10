@@ -21,6 +21,7 @@
         window.data.serverData = data;
         var renderingPins = window.getFilteredData('any');
         window.pins.showSimilarOffers(renderingPins);
+        window.showOfferInfo();
         window.util.errorTemplate.style.display = 'none';
       };
       window.backend.load(onSuccess, window.util.onError);
