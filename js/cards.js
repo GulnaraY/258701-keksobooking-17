@@ -68,7 +68,7 @@
       });
       blockTemplate.appendChild(fragment);
     } else {
-      photoNode.src = '';
+      photoNode.style.display = 'none';
     }
   };
 
