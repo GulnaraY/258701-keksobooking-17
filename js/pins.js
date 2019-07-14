@@ -16,7 +16,7 @@
     pinTemplate.querySelector('img').src = similarItem.author.avatar;
     pinTemplate.style = 'left: ' + (similarItem.location.x - PIN_WIDTH / 2) + 'px; top: ' + (similarItem.location.y - PIN_HEIGHT) + 'px;';
     pinTemplate.querySelector('img').alt = 'Заголовок';
-    pinTemplate.id = similarItem.location.x + '_' + similarItem.location.y;
+    pinTemplate.id = similarItem.id;
     return pinTemplate;
   };
 

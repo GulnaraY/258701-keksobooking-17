@@ -11,7 +11,7 @@
   var errorButton = errorTemplate.querySelector('.error__button');
   mainBlock.appendChild(errorTemplate);
   errorButton.addEventListener('click', function () {
-    window.swowSimilarOffers();
+    window.pins.swowSimilarOffers();
   });
   errorTemplate.style.display = 'none';
 

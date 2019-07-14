@@ -8,13 +8,13 @@
 */
 (function () {
 
-  /** На основе данных от сервера формирует новый массий, в котором каждому объекту добавляет идентификатор
-  * @param {array}data - массив данных, полученных от сервера
+  /** На основе данных от сервера формирует новый массив, в котором каждому объекту добавляет идентификатор
+  * @param {array} data - массив данных, полученных от сервера
   */
   var addIdToData = function (data) {
     window.data.dataWithId = data.slice(0);
-    window.data.dataWithId.forEach(function (element) {
-      element.id = element.location.x + '_' + element.location.y;
+    window.data.dataWithId.forEach(function (element, i) {
+      element.id = i.toString();
     });
   };
 
