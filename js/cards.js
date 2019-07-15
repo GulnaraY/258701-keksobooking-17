@@ -26,6 +26,7 @@
   var popupCloseButton;
   var card;
   var isFirstShow = false;
+  var offer;
 
   /**
   * Отрисовка иконок преимуществ
@@ -51,30 +52,34 @@
   var setOfferPhotos = function (currentOffer) {
     var offerPhotos = currentOffer.offer.photos;
     var fragment = document.createDocumentFragment();
-    var photoNode;
-    if (isFirstShow) {
-      photoNode = Array.from(document.querySelectorAll('.popup__photo')).slice(1);
-      photoNode.forEach(function (element) {
-        element.style.display = 'none';
-      });
-    }
-    photoNode = blockTemplate.querySelector('.popup__photo');
-    if (offerPhotos.length > 0) {
-      photoNode.src = offerPhotos[0];
-      offerPhotos.slice(1).forEach(function (element) {
-        var photoCopy = photoNode.cloneNode(true);
-        photoCopy.src = element;
-        fragment.appendChild(photoCopy);
-      });
-      blockTemplate.appendChild(fragment);
-    } else {
-      photoNode.style.display = 'none';
+    var photosContainer = blockTemplate.querySelector('.popup__photos');
+    var photoNode = blockTemplate.querySelector('.popup__photo');
+    if (offer !== currentOffer) {
+      if (isFirstShow) {
+        var photoNodePhotos = Array.from(document.querySelectorAll('.popup__photo')).slice(1);
+        photoNode.style.display = 'inline-block';
+        photoNodePhotos.forEach(function (element) {
+          photosContainer.removeChild(element);
+        });
+      }
+      if (offerPhotos.length > 0) {
+        photoNode.src = offerPhotos[0];
+        offerPhotos.slice(1).forEach(function (element) {
+          var photoCopy = photoNode.cloneNode(true);
+          photoCopy.src = element;
+          fragment.appendChild(photoCopy);
+        });
+        photosContainer.appendChild(fragment);
+      } else {
+        photoNode.style.display = 'none';
+      }
+      offer = currentOffer;
     }
   };
 
   /**
-   * Закрывает окно информации, удаляет обработчики закрытия
-   */
+  * Закрывает окно информации, удаляет обработчики закрытия
+  */
   var closeInfo = function () {
     card.style.display = 'none';
     popupCloseButton.removeEventListener('click', onPopupCloseButton);
@@ -82,16 +87,16 @@
   };
 
   /**
-   * обработчик клика на иконку закрытия окна информации
-   */
+  * обработчик клика на иконку закрытия окна информации
+  */
   var onPopupCloseButton = function () {
     closeInfo();
   };
 
   /**
-   *обработчик нажатия esc при открытом окне с информацией
-   * @param {object} evt - объект, передаваемый в обработчик события
-   */
+  *обработчик нажатия esc при открытом окне с информацией
+  * @param {object} evt - объект, передаваемый в обработчик события
+  */
   var onPopupCloseKeydown = function (evt) {
     if (evt.keyCode === 27) {
       closeInfo();
