@@ -14,7 +14,7 @@
   * @return {array} - массив с отфильтрованными данными
   */
   window.getFilteredData = function (filterValue) {
-    var filteredPins = window.data.serverData.filter(function (value) {
+    var filteredPins = window.data.dataWithId.filter(function (value) {
       if (filterValue !== 'any') {
         return value.offer.type === filterValue;
       } else {
