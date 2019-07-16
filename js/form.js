@@ -59,14 +59,11 @@
    * @return {boolean} - соответствует ли количество комнат количеству гостей
    */
   var roomsGuestsValidity = function () {
-    if ((roomsQuantityInput.value <= guestsQuantityInput.value) && (roomsQuantityInput.value !== '100') && (guestsQuantityInput.value !== '0')) {
-      return false;
-    } else if ((roomsQuantityInput.value === '100') && (guestsQuantityInput.value !== '0')) {
-      return false;
-    } else if ((roomsQuantityInput.value !== '100') && (guestsQuantityInput.value === '0')) {
+    if (roomsQuantityInput.value < guestsQuantityInput.value) {
       return false;
     }
-    return true;
+    return roomsQuantityInput.value !== '100' && guestsQuantityInput.value !== '0' ||
+           roomsQuantityInput.value === '100' && guestsQuantityInput.value === '0';
   };
 
   /**
