@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * Работа с формой и элементами формы
- * Зависит от модуля util.js, исплользует функцию window.util.setAddress для установки адреса при неактивной форме
- */
+* Работа с формой и элементами формы
+* Зависит от модуля util.js, исплользует функцию window.util.setAddress для установки адреса при неактивной форме
+*/
 (function () {
   var typeInput = document.querySelector('#type');
   var priceInput = document.querySelector('#price');
@@ -18,12 +18,14 @@
   var form = document.querySelector('.ad-form');
   var formFieldsets = form.querySelectorAll('fieldset');
   var mainPin = document.querySelector('.map__pin--main');
-
+  var submitButton = form.querySelector('.ad-form__submit');
   var compareTypeAndPrice = function (housingType) {
     var housingMinPrice = HOUSING_TYPES_PRICESES[housingType];
     priceInput.min = housingMinPrice;
     priceInput.placeholder = housingMinPrice;
   };
+  var roomsQuantityInput = form.querySelector('#room_number');
+  var guestsQuantityInput = form.querySelector('#capacity');
 
   var onFormTypeClick = function (evt) {
     compareTypeAndPrice(evt.target.value);
@@ -51,4 +53,29 @@
 
   window.util.setAddress(mainPin.style.left, mainPin.style.top);
   disableFormElements();
+
+  /**
+   * Проверка соответствия количества комнат количеству гостей
+   * @return {boolean} - соответствует ли количество комнат количеству гостей
+   */
+  var roomsGuestsValidity = function () {
+    if (roomsQuantityInput.value < guestsQuantityInput.value) {
+      return false;
+    }
+    return roomsQuantityInput.value !== '100' && guestsQuantityInput.value !== '0' ||
+           roomsQuantityInput.value === '100' && guestsQuantityInput.value === '0';
+  };
+
+  /**
+   * Обработчик для дополнительной валидации формы
+   */
+  var onSubmitButtonClick = function () {
+    var validity = roomsGuestsValidity();
+    if (!validity) {
+      guestsQuantityInput.setCustomValidity('Количество гостей не соответствует количеству комнат');
+    } else {
+      guestsQuantityInput.setCustomValidity('');
+    }
+  };
+  submitButton.addEventListener('click', onSubmitButtonClick);
 })();
