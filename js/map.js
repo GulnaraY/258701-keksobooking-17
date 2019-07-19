@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * Взаимодействие с картой, перетаскивание метки
- * Зависит от модуля data.js
- */
+* Взаимодействие с картой, перетаскивание метки
+* Зависит от модуля data.js
+*/
 (function () {
   var isMapActive = false;
   var MIN_X_MAIN = 0;
@@ -11,6 +11,8 @@
   var MAX_X_MAIN = 1200 - MAIN_PIN_WIDTH;
   var MIN_Y_MAIN = 130;
   var MAX_Y_MAIN = 630;
+  var MAIN_PIN_LEFT = 570;
+  var MAIN_PIN_TOP = 375;
   var form = document.querySelector('.ad-form');
   var formFieldsets = form.querySelectorAll('fieldset');
   var map = document.querySelector('.map');
@@ -20,6 +22,7 @@
     map.classList.remove('map--faded');
     isMapActive = true;
   };
+
   var onPinMouseDown = function (evt) {
     evt.preventDefault();
     var pinCoords = {
@@ -89,4 +92,23 @@
   };
 
   mainPin.addEventListener('mousedown', onPinMouseDown);
+
+  /**
+  * Переводит карту в неактивное состояние
+  */
+  var disableMap = function () {
+    map.classList.add('map--faded');
+    isMapActive = false;
+  };
+
+  /**
+  * Возврат карты в первоначальное состояние
+  */
+  window.showMapsInactiveStatement = function () {
+    disableMap();
+    window.pins.removePins();
+    mainPin.style.left = MAIN_PIN_LEFT + 'px';
+    mainPin.style.top = MAIN_PIN_TOP + 'px';
+    window.util.setAddress(MAIN_PIN_LEFT, MAIN_PIN_TOP);
+  };
 })();
