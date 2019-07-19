@@ -3,6 +3,7 @@
 /**
 * Взаимодействие с картой, перетаскивание метки
 * Зависит от модуля data.js
+* метод window.showMapInactiveStatement доступен для других модулей
 */
 (function () {
   var isMapActive = false;
