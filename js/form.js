@@ -28,7 +28,6 @@
   };
   var roomsQuantityInput = form.querySelector('#room_number');
   var guestsQuantityInput = form.querySelector('#capacity');
-  var inputsStartStatementMap = {};
 
   var onFormTypeClick = function (evt) {
     compareTypeAndPrice(evt.target.value);
@@ -48,13 +47,6 @@
   timeInInput.addEventListener('input', onFormTimeClick);
   timeOutInput.addEventListener('input', onFormTimeClick);
 
-  var saveFormFirstStatement = function () {
-    var inputsStartStatement = Array.from(document.querySelectorAll('.ad-form [id]:not(.feature__checkbox)'));
-    inputsStartStatement.forEach(function (element) {
-      inputsStartStatementMap[element.id] = element.value;
-    });
-  };
-
   var disableFormElements = function () {
     for (var j = 0; j < formFieldsets.length; j++) {
       formFieldsets[j].disabled = true;
@@ -67,7 +59,7 @@
   };
 
   window.util.setAddress(mainPin.style.left, mainPin.style.top);
-  saveFormFirstStatement();
+  // saveFormFirstStatement();
   disableFormElements();
 
   /**
@@ -96,24 +88,17 @@
   submitButton.addEventListener('click', onSubmitButtonClick);
 
   /**
-   * Возвращает форме первоначальные данные
+   * Сбрасывает данные формы
    */
-  var setStartValuesOnForm = function () {
-    var inputsCurrentStatement = Array.from(document.querySelectorAll('.ad-form [id]'));
-    inputsCurrentStatement.forEach(function (element) {
-      if (element.classList.contains('feature__checkbox')) {
-        element.checked = false;
-      } else {
-        element.value = inputsStartStatementMap[element.id];
-      }
-    });
+  var resetForm = function () {
+    form.reset();
   };
 
   /**
    * Переводит форму в неактивное состояние
    */
   var showFormsInactiveStatement = function () {
-    setStartValuesOnForm();
+    resetForm();
     disableForm();
   };
 
@@ -121,8 +106,8 @@
   * После успешной отправки данных на сервер
   */
   var onSuccess = function () {
-    window.showMapsInactiveStatement();
     showFormsInactiveStatement();
+    window.showMapsInactiveStatement();
     window.messages.onSuccessDataSend();
   };
 
