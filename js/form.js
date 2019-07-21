@@ -88,31 +88,59 @@
   submitButton.addEventListener('click', onSubmitButtonClick);
 
   /**
-   * Сбрасывает данные формы
-   */
+  * Сбрасывает данные формы
+  */
   var resetForm = function () {
     form.reset();
   };
 
   /**
-   * Переводит форму в неактивное состояние
-   */
+  * Переводит форму в неактивное состояние
+  */
   var showFormsInactiveStatement = function () {
     resetForm();
     disableForm();
   };
-
+  /**
+  * обработка успешной отправки данных на сервер
+  */
+  var onSuccessDataSend = function () {
+    window.messages.successMessageShow();
+  };
   /**
   * После успешной отправки данных на сервер
   */
   var onSuccess = function () {
     showFormsInactiveStatement();
     window.showMapsInactiveStatement();
-    window.messages.onSuccessDataSend();
+    onSuccessDataSend();
+  };
+
+  window.form = {
+    /**
+    * обработка ошибки при загрузке данных с сервера
+    * @param {string} message - текст сообщения об ошибке
+    */
+    onErrorLoad: function (message) {
+      var loadErrorElement = window.messages.loadErrorElement;
+      var errorMessage = loadErrorElement.querySelector('.error__message');
+      errorMessage.textContent = message;
+      window.messages.errorMessageShow('load');
+    },
+    /**
+    * обработка ошибки при отправке данных на сервер
+    * @param {string} message - текст сообщения об ошибке
+    */
+    onErrorSend: function (message) {
+      var saveErrorElement = window.messages.saveErrorElement;
+      var errorMessage = saveErrorElement.querySelector('.error__message');
+      errorMessage.textContent = message;
+      window.messages.errorMessageShow('save');
+    }
   };
 
   var onFormSubmit = function (evt) {
-    window.backend.save(new FormData(form), onSuccess, window.messages.onErrorSend);
+    window.backend.save(new FormData(form), onSuccess, window.form.onErrorSend);
     evt.preventDefault();
   };
 

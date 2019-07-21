@@ -32,7 +32,7 @@
 
       xhr.send();
       var onConnectionError = function () {
-        window.messages.onErrorLoad('Произошла ошибка соединения');
+        window.form.onErrorLoad('Произошла ошибка соединения');
       };
 
       xhr.addEventListener('error', onConnectionError);
@@ -57,7 +57,7 @@
       });
 
       var onConnectionError = function () {
-        window.messages.onErrorSend('Произошла ошибка соединения');
+        window.form.onErrorSend('Произошла ошибка соединения');
       };
 
       xhr.addEventListener('error', onConnectionError);
