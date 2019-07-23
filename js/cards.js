@@ -129,11 +129,13 @@
       popupCloseButton.addEventListener('click', onPopupCloseButton);
       document.addEventListener('keydown', onPopupCloseKeydown);
     },
-
+    /**
+     * Скрываем карточку объявления
+     */
     hideOfferInfo: function () {
       if (card) {
         closeInfo();
       }
     }
-  }
+  };
 })();
