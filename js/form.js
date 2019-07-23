@@ -59,7 +59,6 @@
   };
 
   window.util.setAddress(mainPin.style.left, mainPin.style.top);
-  // saveFormFirstStatement();
   disableFormElements();
 
   /**
@@ -113,6 +112,7 @@
   var onSuccess = function () {
     showFormsInactiveStatement();
     window.showMapsInactiveStatement();
+    window.cards.hideOfferInfo();
     onSuccessDataSend();
   };
 
