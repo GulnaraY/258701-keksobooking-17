@@ -18,7 +18,7 @@
     currentElement = data.find(function (element) {
       return element.id === pinId;
     });
-    window.showOfferInfo(currentElement);
+    window.cards.showOfferInfo(currentElement);
   };
 
   /**

@@ -36,9 +36,8 @@
         addIdToData(window.data.serverData);
         var renderingPins = window.getFilteredData('any');
         window.pins.showSimilarOffers(renderingPins);
-        window.util.errorTemplate.style.display = 'none';
       };
-      window.backend.load(onSuccess, window.util.onError);
+      window.backend.load(onSuccess, window.messages.onErrorLoad);
     }
   };
 })();

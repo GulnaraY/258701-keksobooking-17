@@ -3,6 +3,8 @@
 /**
 * Работа с формой и элементами формы
 * Зависит от модуля util.js, исплользует функцию window.util.setAddress для установки адреса при неактивной форме
+* Зависит от модуля messages.js
+* Зависит от модуля map.js
 */
 (function () {
   var typeInput = document.querySelector('#type');
@@ -51,24 +53,29 @@
     }
   };
 
+  var disableForm = function () {
+    form.classList.add('ad-form--disabled');
+    disableFormElements();
+  };
+
   window.util.setAddress(mainPin.style.left, mainPin.style.top);
   disableFormElements();
 
   /**
-   * Проверка соответствия количества комнат количеству гостей
-   * @return {boolean} - соответствует ли количество комнат количеству гостей
-   */
+  * Проверка соответствия количества комнат количеству гостей
+  * @return {boolean} - соответствует ли количество комнат количеству гостей
+  */
   var roomsGuestsValidity = function () {
     if (roomsQuantityInput.value < guestsQuantityInput.value) {
       return false;
     }
     return roomsQuantityInput.value !== '100' && guestsQuantityInput.value !== '0' ||
-           roomsQuantityInput.value === '100' && guestsQuantityInput.value === '0';
+    roomsQuantityInput.value === '100' && guestsQuantityInput.value === '0';
   };
 
   /**
-   * Обработчик для дополнительной валидации формы
-   */
+  * Обработчик для дополнительной валидации формы
+  */
   var onSubmitButtonClick = function () {
     var validity = roomsGuestsValidity();
     if (!validity) {
@@ -78,4 +85,64 @@
     }
   };
   submitButton.addEventListener('click', onSubmitButtonClick);
+
+  /**
+  * Сбрасывает данные формы
+  */
+  var resetForm = function () {
+    form.reset();
+  };
+
+  /**
+  * Переводит форму в неактивное состояние
+  */
+  var showFormsInactiveStatement = function () {
+    resetForm();
+    disableForm();
+  };
+  /**
+  * обработка успешной отправки данных на сервер
+  */
+  var onSuccessDataSend = function () {
+    window.messages.successMessageShow();
+  };
+  /**
+  * После успешной отправки данных на сервер
+  */
+  var onSuccess = function () {
+    showFormsInactiveStatement();
+    window.showMapsInactiveStatement();
+    window.cards.hideOfferInfo();
+    onSuccessDataSend();
+  };
+
+  window.form = {
+    /**
+    * обработка ошибки при загрузке данных с сервера
+    * @param {string} message - текст сообщения об ошибке
+    */
+    onErrorLoad: function (message) {
+      var loadErrorElement = window.messages.loadErrorElement;
+      var errorMessage = loadErrorElement.querySelector('.error__message');
+      errorMessage.textContent = message;
+      window.messages.errorMessageShow('load');
+    },
+    /**
+    * обработка ошибки при отправке данных на сервер
+    * @param {string} message - текст сообщения об ошибке
+    */
+    onErrorSend: function (message) {
+      var saveErrorElement = window.messages.saveErrorElement;
+      var errorMessage = saveErrorElement.querySelector('.error__message');
+      errorMessage.textContent = message;
+      window.messages.errorMessageShow('save');
+    }
+  };
+
+  var onFormSubmit = function (evt) {
+    window.backend.save(new FormData(form), onSuccess, window.form.onErrorSend);
+    evt.preventDefault();
+  };
+
+  form.addEventListener('submit', onFormSubmit);
 })();

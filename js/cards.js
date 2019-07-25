@@ -103,29 +103,39 @@
     }
   };
 
-  /**
-  * Фунцкия отрисовки карточки объявления
-  * @param {object} currentOffer - текущий объект из массива данных, описывающий объявление
-  */
-  window.showOfferInfo = function (currentOffer) {
-    blockTemplate.querySelector('.popup__title').textContent = currentOffer.offer.title;
-    blockTemplate.querySelector('.popup__text--address').textContent = currentOffer.offer.address;
-    blockTemplate.querySelector('.popup__text--price').textContent = currentOffer.offer.price + ' ₽/ночь.';
-    blockTemplate.querySelector('.popup__type').textContent = housingTypesMap[currentOffer.offer.type];
-    blockTemplate.querySelector('.popup__text--capacity').textContent = currentOffer.offer.rooms + ' комнаты для ' + currentOffer.offer.guests + ' гостей.';
-    blockTemplate.querySelector('.popup__text--time').textContent = 'Заезд после ' + currentOffer.offer.checkin + ', выезд до ' + currentOffer.offer.checkout + '.';
-    blockTemplate.querySelector('.popup__description').textContent = currentOffer.offer.description;
-    blockTemplate.querySelector('.popup__avatar').src = currentOffer.author.avatar;
-    setFeatures(currentOffer);
-    setOfferPhotos(currentOffer);
-    if (!isFirstShow) {
-      map.appendChild(blockTemplate);
-      isFirstShow = true;
-      card = map.querySelector('.map__card');
-      popupCloseButton = card.querySelector('.popup__close');
+  window.cards = {
+    /**
+    * Фунцкия отрисовки карточки объявления
+    * @param {object} currentOffer - текущий объект из массива данных, описывающий объявление
+    */
+    showOfferInfo: function (currentOffer) {
+      blockTemplate.querySelector('.popup__title').textContent = currentOffer.offer.title;
+      blockTemplate.querySelector('.popup__text--address').textContent = currentOffer.offer.address;
+      blockTemplate.querySelector('.popup__text--price').textContent = currentOffer.offer.price + ' ₽/ночь.';
+      blockTemplate.querySelector('.popup__type').textContent = housingTypesMap[currentOffer.offer.type];
+      blockTemplate.querySelector('.popup__text--capacity').textContent = currentOffer.offer.rooms + ' комнаты для ' + currentOffer.offer.guests + ' гостей.';
+      blockTemplate.querySelector('.popup__text--time').textContent = 'Заезд после ' + currentOffer.offer.checkin + ', выезд до ' + currentOffer.offer.checkout + '.';
+      blockTemplate.querySelector('.popup__description').textContent = currentOffer.offer.description;
+      blockTemplate.querySelector('.popup__avatar').src = currentOffer.author.avatar;
+      setFeatures(currentOffer);
+      setOfferPhotos(currentOffer);
+      if (!isFirstShow) {
+        map.appendChild(blockTemplate);
+        isFirstShow = true;
+        card = map.querySelector('.map__card');
+        popupCloseButton = card.querySelector('.popup__close');
+      }
+      card.style.display = 'block';
+      popupCloseButton.addEventListener('click', onPopupCloseButton);
+      document.addEventListener('keydown', onPopupCloseKeydown);
+    },
+    /**
+     * Скрываем карточку объявления
+     */
+    hideOfferInfo: function () {
+      if (card) {
+        closeInfo();
+      }
     }
-    card.style.display = 'block';
-    popupCloseButton.addEventListener('click', onPopupCloseButton);
-    document.addEventListener('keydown', onPopupCloseKeydown);
   };
 })();
