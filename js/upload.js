@@ -9,6 +9,7 @@
   var photosContainer = document.querySelector('.ad-form__photo-container');
   var priviewPhotoContainer = document.querySelector('.ad-form__photo');
   var isFirstPhotoChoosing = false;
+  var DEFAULT_AVATAR = 'img/muffin-grey.svg';
 
   fileChooserAvatar.addEventListener('change', function () {
     var file = fileChooserAvatar.files[0];
@@ -60,4 +61,21 @@
       reader.readAsDataURL(file);
     }
   });
+  /**
+   * Удаляет загруженные фотографии
+   */
+  window.hideUploadedFiles = function () {
+    previewAvatar.src = DEFAULT_AVATAR;
+    var containers = Array.from(document.querySelectorAll('.ad-form__photo'));
+    var firstPhoto = containers[0].querySelector('img');
+
+    if (firstPhoto) {
+      containers[0].removeChild(firstPhoto);
+      isFirstPhotoChoosing = false;
+    }
+    var containersToRemove = containers.slice(1);
+    containersToRemove.forEach(function (element) {
+      photosContainer.removeChild(element);
+    });
+  };
 })();
