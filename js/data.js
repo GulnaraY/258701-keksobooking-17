@@ -34,7 +34,7 @@
       var onSuccess = function (data) {
         window.data.serverData = data;
         addIdToData(window.data.serverData);
-        var renderingPins = window.getFilteredData('any');
+        var renderingPins = window.getFilteredData();
         window.pins.showSimilarOffers(renderingPins);
       };
       window.backend.load(onSuccess, window.messages.onErrorLoad);
