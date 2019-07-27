@@ -11,11 +11,23 @@
   var housingRoomsFilter = document.querySelector('#housing-rooms');
   var housingGuestsFilter = document.querySelector('#housing-guests');
   var housingFeatures = document.querySelector('#housing-features');
-  var filters = {};
+  var filters = {
+    'housing-type': 'any',
+    'housing-price': 'any',
+    'housing-rooms': 'any',
+    'housing-guests': 'any',
+    'filter-wifi': 'unchecked',
+    'filter-dishwasher': 'unchecked',
+    'filter-parking': 'unchecked',
+    'filter-washer': 'unchecked',
+    'filter-elevator': 'unchecked',
+    'filter-conditioner': 'unchecked'
+  };
   var pricingMap = {
     'middle': [10000, 50000],
     'low': [0, 10000],
-    'high': [50000, Infinity]
+    'high': [50000, Infinity],
+    'any': [0, Infinity]
   };
 
   /**
@@ -23,45 +35,21 @@
   * @return {array} - массив отфильтрованных данных
   */
   window.getFilteredData = function () {
-    var data = window.data.dataWithId;
-    for (var p in filters) {
-      if (!filters.hasOwnProperty(p)) {
-        continue;
-      }
-      if (p === 'housing-type') {
-        data = data.filter(function (value) {
-          if (filters[p] !== 'any') {
-            return value.offer.type === filters[p];
-          }
-          return true;
-        });
-      } else if (p === 'housing-price') {
-        data = data.filter(function (value) {
-          if (filters[p] !== 'any') {
-            return ((pricingMap[filters[p]][0] <= value.offer.price) && (pricingMap[filters[p]][1] >= value.offer.price));
-          }
-          return true;
-        });
-      } else if (p === 'housing-rooms') {
-        data = data.filter(function (value) {
-          if (filters[p] !== 'any') {
-            return (String(value.offer.rooms) === filters[p]);
-          }
-          return true;
-        });
-      } else if (p === 'housing-guests') {
-        data = data.filter(function (value) {
-          if (filters[p] !== 'any') {
-            return String(value.offer.guests) === filters[p];
-          }
-          return true;
-        });
-      } else if (p.slice(0, 6) === 'filter') {
-        data = data.filter(function (value) {
-          return (value.offer.features.includes(filters[p]));
-        });
-      }
-    }
+    var data = window.data.dataWithId.filter(function (item) {
+      var isFilteredType = filters['housing-type'] === item.offer.type || filters['housing-type'] === 'any';
+      var isFilteredPrice = (pricingMap[filters['housing-price']][0] <= item.offer.price && pricingMap[filters['housing-price']][1] >= item.offer.price) || filters['housing-price'] === 'any';
+      var isFilteredRooms = filters['housing-rooms'] === String(item.offer.rooms) || filters['housing-rooms'] === 'any';
+      var isFilteredGuests = filters['housing-guests'] === String(item.offer.guests) || filters['housing-guests'] === 'any';
+      var isFilteredWifi = item.offer.features.includes(filters['filter-wifi']) || filters['filter-wifi'] === 'unchecked';
+      var isFilteredDishwasher = item.offer.features.includes(filters['filter-dishwasher']) || filters['filter-dishwasher'] === 'unchecked';
+      var isFilteredParking = item.offer.features.includes(filters['filter-parking']) || filters['filter-parking'] === 'unchecked';
+      var isFilteredElevator = item.offer.features.includes(filters['filter-elevator']) || filters['filter-elevator'] === 'unchecked';
+      var isFilteredWasher = item.offer.features.includes(filters['filter-washer']) || filters['filter-washer'] === 'unchecked';
+      var isFilteredConditioner = item.offer.features.includes(filters['filter-conditioner']) || filters['filter-conditioner'] === 'unchecked';
+
+      return isFilteredType && isFilteredPrice && isFilteredRooms && isFilteredGuests && isFilteredWifi && isFilteredDishwasher
+      && isFilteredParking && isFilteredElevator && isFilteredWasher && isFilteredConditioner;
+    });
     return data.slice(0, window.pins.PINS_QUANTITY);
   };
 
@@ -86,7 +74,7 @@
       if (evt.target.checked) {
         filters[evt.target.id] = evt.target.value;
       } else {
-        delete filters[evt.target.id];
+        filters[evt.target.id] = 'unchecked';
       }
     }
     window.cards.hideOfferInfo();
