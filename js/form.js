@@ -6,6 +6,7 @@
 * Зависит от модуля messages.js
 * Зависит от модуля map.js
 * Зависит от модуля upload.js
+* Зависит от модуля filter.js
 */
 (function () {
   var typeInput = document.querySelector('#type');
@@ -115,6 +116,7 @@
     window.showMapsInactiveStatement();
     window.cards.hideOfferInfo();
     window.hideUploadedFiles();
+    window.filter.resetFilters();
     onSuccessDataSend();
   };
 
