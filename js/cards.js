@@ -8,7 +8,7 @@
   var map = document.querySelector('.map');
   var blockTemplate = document.querySelector('#card').content.querySelector('.map__card').cloneNode(true);
   var allHouseFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  var featuresMap = {
+  var FeaturesMap = {
     wifi: 'popup__feature--wifi',
     dishwasher: 'popup__feature--dishwasher',
     parking: 'popup__feature--parking',
@@ -17,7 +17,7 @@
     conditioner: 'popup__feature--conditioner'
   };
 
-  var housingTypesMap = {
+  var HousingTypes = {
     palace: 'Дворец',
     flat: 'Квартира',
     house: 'Дом',
@@ -38,9 +38,9 @@
 
     allHouseFeatures.forEach(function (element) {
       if (currentFeatures.includes(element)) {
-        featuresNode.querySelector('.' + featuresMap[element]).style.display = 'inline-block';
+        featuresNode.querySelector('.' + FeaturesMap[element]).style.display = 'inline-block';
       } else {
-        featuresNode.querySelector('.' + featuresMap[element]).style.display = 'none';
+        featuresNode.querySelector('.' + FeaturesMap[element]).style.display = 'none';
       }
     });
   };
@@ -112,7 +112,7 @@
       blockTemplate.querySelector('.popup__title').textContent = currentOffer.offer.title;
       blockTemplate.querySelector('.popup__text--address').textContent = currentOffer.offer.address;
       blockTemplate.querySelector('.popup__text--price').textContent = currentOffer.offer.price + ' ₽/ночь.';
-      blockTemplate.querySelector('.popup__type').textContent = housingTypesMap[currentOffer.offer.type];
+      blockTemplate.querySelector('.popup__type').textContent = HousingTypes[currentOffer.offer.type];
       blockTemplate.querySelector('.popup__text--capacity').textContent = currentOffer.offer.rooms + ' комнаты для ' + currentOffer.offer.guests + ' гостей.';
       blockTemplate.querySelector('.popup__text--time').textContent = 'Заезд после ' + currentOffer.offer.checkin + ', выезд до ' + currentOffer.offer.checkout + '.';
       blockTemplate.querySelector('.popup__description').textContent = currentOffer.offer.description;
