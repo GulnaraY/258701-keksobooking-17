@@ -5,6 +5,8 @@
 * Зависит от модуля util.js, исплользует функцию window.util.setAddress для установки адреса при неактивной форме
 * Зависит от модуля messages.js
 * Зависит от модуля map.js
+* Зависит от модуля upload.js
+* Зависит от модуля filter.js
 */
 (function () {
   var typeInput = document.querySelector('#type');
@@ -113,6 +115,8 @@
     showFormsInactiveStatement();
     window.showMapsInactiveStatement();
     window.cards.hideOfferInfo();
+    window.hideUploadedFiles();
+    window.filter.resetFilters();
     onSuccessDataSend();
   };
 

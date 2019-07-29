@@ -4,6 +4,8 @@
 * Утилиты, хелперы
 */
 (function () {
+  var DEBOUNCE_INTERVAL = 300;
+  var lastTimeout;
 
   window.util = {
 
@@ -38,6 +40,16 @@
       var mainPinX = parseInt(left, 10) + Math.round(MAIN_PIN_WIDTH / 2);
       var mainPinY = parseInt(top, 10) + Math.round(MAIN_PIN_HEIGHT);
       addressInput.value = mainPinX + ', ' + mainPinY;
+    },
+    /**
+     * Устранение дребезга
+     * @param {function} cb - функция, которая выполнится после Таймаута
+     */
+    debounce: function (cb) {
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout(cb, DEBOUNCE_INTERVAL);
     }
   };
 })();
