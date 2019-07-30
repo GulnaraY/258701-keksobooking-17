@@ -116,7 +116,7 @@
     /**
     * Показывает сообщение об успешной отправке данных
     */
-    successMessageShow: function () {
+    successShow: function () {
       document.addEventListener('keydown', onSuccessKeyDown);
       successTemplate.style.display = 'block';
     },
