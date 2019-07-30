@@ -64,7 +64,7 @@
         });
         return isFilteredType && isFilteredPrice && isFilteredRooms && isFilteredGuests && isFilteredFeatures;
       });
-      return data.slice(0, window.pins.PINS_QUANTITY);
+      return data.slice(0, window.pins.QUANTITY);
     },
 
     /**

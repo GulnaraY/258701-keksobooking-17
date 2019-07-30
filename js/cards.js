@@ -5,6 +5,7 @@
 * метод window.showOfferInfo доступен для других модулей
 */
 (function () {
+  var ESC_KEYCODE = 27;
   var map = document.querySelector('.map');
   var blockTemplate = document.querySelector('#card').content.querySelector('.map__card').cloneNode(true);
   var allHouseFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -98,7 +99,7 @@
   * @param {object} evt - объект, передаваемый в обработчик события
   */
   var onPopupCloseKeydown = function (evt) {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === ESC_KEYCODE) {
       closeInfo();
     }
   };
