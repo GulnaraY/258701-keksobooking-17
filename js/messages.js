@@ -103,7 +103,7 @@
 
   window.messages = {
     /**
-    * ссылка на сообщение с ошибкой отправки
+    * ссылка на сообщение с ошибкой отправки данных
     */
     saveErrorElement: saveErrorElement,
 
