@@ -15,6 +15,7 @@
     if (connectionType === 'load') {
       loadErrorElement.style.display = 'none';
     } else if (connectionType === 'save') {
+      document.removeEventListener('keydown', onSaveErrorKeyDown);
       saveErrorElement.style.display = 'none';
     }
   };
@@ -56,7 +57,6 @@
     } else if (connectionType === 'save') {
       errorButton.addEventListener('click', onSendErrorButtonClick);
       errorTemplate.addEventListener('click', onSendErrorMessageClick);
-      document.addEventListener('keydown', onSaveErrorKeyDown);
     }
     mainBlock.appendChild(errorTemplate);
     errorTemplate.style.display = 'none';
@@ -67,6 +67,7 @@
   * Скрывает сообщение об успешной отправке данных
   */
   var successMessageHide = function () {
+    document.removeEventListener('keydown', onSuccessKeyDown);
     successTemplate.style.display = 'none';
   };
 
@@ -90,7 +91,6 @@
   var createSuccessElement = function () {
     var success = document.querySelector('#success').content.querySelector('.success');
     var successTemplate = success.cloneNode(true);
-    document.addEventListener('keydown', onSuccessKeyDown);
     successTemplate.addEventListener('click', onSuccessMessageClick);
     mainBlock.appendChild(successTemplate);
     successTemplate.style.display = 'none';
@@ -116,6 +116,7 @@
     * Показывает сообщение об успешной отправке данных
     */
     successMessageShow: function () {
+      document.addEventListener('keydown', onSuccessKeyDown);
       successTemplate.style.display = 'block';
     },
 
@@ -127,6 +128,7 @@
       if (connectionType === 'load') {
         loadErrorElement.style.display = 'block';
       } else if (connectionType === 'save') {
+        document.addEventListener('keydown', onSaveErrorKeyDown);
         saveErrorElement.style.display = 'block';
       }
     }
