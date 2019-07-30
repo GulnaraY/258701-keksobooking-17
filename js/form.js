@@ -23,14 +23,13 @@
   var formFieldsets = form.querySelectorAll('fieldset');
   var mainPin = document.querySelector('.map__pin--main');
   var submitButton = form.querySelector('.ad-form__submit');
+  var roomsQuantityInput = form.querySelector('#room_number');
+  var guestsQuantityInput = form.querySelector('#capacity');
   var compareTypeAndPrice = function (housingType) {
     var housingMinPrice = HousingTypesPrices[housingType.toUpperCase()];
     priceInput.min = housingMinPrice;
     priceInput.placeholder = housingMinPrice;
   };
-  var roomsQuantityInput = form.querySelector('#room_number');
-  var guestsQuantityInput = form.querySelector('#capacity');
-
   var onFormTypeClick = function (evt) {
     compareTypeAndPrice(evt.target.value);
   };
