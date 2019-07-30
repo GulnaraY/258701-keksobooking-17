@@ -14,17 +14,17 @@
   var timeInInput = document.querySelector('#timein');
   var timeOutInput = document.querySelector('#timeout');
   var HousingTypesPrices = {
-    'palace': 10000,
-    'flat': 1000,
-    'house': 5000,
-    'bungalo': 0
+    PALACE: 10000,
+    FLAT: 1000,
+    HOUSE: 5000,
+    BUNGALO: 0
   };
   var form = document.querySelector('.ad-form');
   var formFieldsets = form.querySelectorAll('fieldset');
   var mainPin = document.querySelector('.map__pin--main');
   var submitButton = form.querySelector('.ad-form__submit');
   var compareTypeAndPrice = function (housingType) {
-    var housingMinPrice = HousingTypesPrices[housingType];
+    var housingMinPrice = HousingTypesPrices[housingType.toUpperCase()];
     priceInput.min = housingMinPrice;
     priceInput.placeholder = housingMinPrice;
   };
