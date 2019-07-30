@@ -54,7 +54,7 @@
     * @return {array} - массив отфильтрованных данных
     */
     getFilteredData: function () {
-      var data = window.data.dataWithId.filter(function (item) {
+      var data = window.data.withId.filter(function (item) {
         var isFilteredType = filters[filterType] === item.offer.type || filters[filterType] === noFilter;
         var isFilteredPrice = (PricingMap[filters[filterPrice].toUpperCase()][0] <= item.offer.price && PricingMap[filters[filterPrice].toUpperCase()][1] >= item.offer.price) || filters[filterPrice] === noFilter;
         var isFilteredRooms = filters[filterRooms] === String(item.offer.rooms) || filters[filterRooms] === noFilter;
@@ -81,7 +81,7 @@
   * @param {object} filterValue - значение, по которому фильтруются данные
   */
   var showFilteredAdvertisments = function () {
-    window.pins.removePins();
+    window.pins.remove();
     var filteredData = window.filter.getFilteredData();
     window.pins.showSimilarOffers(filteredData);
   };

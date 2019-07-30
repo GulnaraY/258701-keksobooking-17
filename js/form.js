@@ -105,7 +105,7 @@
   * обработка успешной отправки данных на сервер
   */
   var onSuccessDataSend = function () {
-    window.messages.successMessageShow();
+    window.messages.successShow();
   };
   /**
   * После успешной отправки данных на сервер

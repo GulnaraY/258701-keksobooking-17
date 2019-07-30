@@ -11,9 +11,9 @@
   /** На основе данных от сервера формирует новый массив, в котором каждому объекту добавляет идентификатор
   * @param {array} data - массив данных, полученных от сервера
   */
-  var addIdToData = function (data) {
-    window.data.dataWithId = data.slice(0);
-    window.data.dataWithId.forEach(function (element, i) {
+  var addId = function (data) {
+    window.data.withId = data.slice(0);
+    window.data.withId.forEach(function (element, i) {
       element.id = i.toString();
     });
   };
@@ -22,18 +22,18 @@
     /**
     * содержит данные, загруженные с сервера
     */
-    serverData: [],
+    fromServer: [],
     /**
     * копия массива данных загруженных с сервера, к каждому элементу которого, добавлен идентификатор
     */
-    dataWithId: [],
+    withId: [],
     /**
     * Обработка данных, полученных от сервера
     */
     load: function () {
       var onSuccess = function (data) {
-        window.data.serverData = data;
-        addIdToData(window.data.serverData);
+        window.data.fromServer = data;
+        addId(window.data.fromServer);
         var renderingPins = window.filter.getFilteredData();
         window.pins.showSimilarOffers(renderingPins);
       };

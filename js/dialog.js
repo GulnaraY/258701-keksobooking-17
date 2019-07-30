@@ -12,7 +12,7 @@
   * @param {string} pinId - строка, содержащая идентификатор объекта
   */
   var findInfo = function (pinId) {
-    var data = window.data.dataWithId;
+    var data = window.data.withId;
     var currentElement = '';
 
     currentElement = data.find(function (element) {

@@ -107,7 +107,7 @@
   */
   window.showMapsInactiveStatement = function () {
     disableMap();
-    window.pins.removePins();
+    window.pins.remove();
     mainPin.style.left = MAIN_PIN_LEFT + 'px';
     mainPin.style.top = MAIN_PIN_TOP + 'px';
     window.util.setAddress(MAIN_PIN_LEFT, MAIN_PIN_TOP);
