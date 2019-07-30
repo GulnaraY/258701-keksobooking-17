@@ -70,7 +70,7 @@
     /**
      * Сброс фильтров
      */
-    resetFilters: function () {
+    reset: function () {
       filtersForm.reset();
       fillFiltersMapStartStatement();
     }

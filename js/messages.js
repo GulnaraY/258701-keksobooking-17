@@ -24,7 +24,7 @@
   */
   var onLoadErrorButton = function () {
     errorMessageHide('load');
-    window.data.loadData();
+    window.data.load();
   };
 
   /**

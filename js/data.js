@@ -30,7 +30,7 @@
     /**
     * Обработка данных, полученных от сервера
     */
-    loadData: function () {
+    load: function () {
       var onSuccess = function (data) {
         window.data.serverData = data;
         addIdToData(window.data.serverData);

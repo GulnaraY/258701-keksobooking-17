@@ -79,7 +79,7 @@
       document.removeEventListener('mouseup', onPinMouseUp);
 
       if (!isMapActive) {
-        window.data.loadData();
+        window.data.load();
         activateMap();
         enableForm();
         enableFormElements();

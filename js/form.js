@@ -116,7 +116,7 @@
     window.showMapsInactiveStatement();
     window.cards.hideOfferInfo();
     window.hideUploadedFiles();
-    window.filter.resetFilters();
+    window.filter.reset();
     onSuccessDataSend();
   };
 
