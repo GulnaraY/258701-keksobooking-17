@@ -13,7 +13,7 @@
   var priceInput = document.querySelector('#price');
   var timeInInput = document.querySelector('#timein');
   var timeOutInput = document.querySelector('#timeout');
-  var HOUSING_TYPES_PRICESES = {
+  var HousingTypesPrices = {
     'palace': 10000,
     'flat': 1000,
     'house': 5000,
@@ -24,7 +24,7 @@
   var mainPin = document.querySelector('.map__pin--main');
   var submitButton = form.querySelector('.ad-form__submit');
   var compareTypeAndPrice = function (housingType) {
-    var housingMinPrice = HOUSING_TYPES_PRICESES[housingType];
+    var housingMinPrice = HousingTypesPrices[housingType];
     priceInput.min = housingMinPrice;
     priceInput.placeholder = housingMinPrice;
   };
