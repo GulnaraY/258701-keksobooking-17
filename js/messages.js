@@ -5,6 +5,7 @@
 */
 
 (function () {
+  var ESC_KEYCODE = 27;
   var mainBlock = document.querySelector('main');
 
   /**
@@ -38,7 +39,7 @@
     errorMessageHide('save');
   };
   var onSaveErrorKeyDown = function (evt) {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === ESC_KEYCODE) {
       errorMessageHide('save');
     }
   };
@@ -76,7 +77,7 @@
   * @param {object} evt - объект, который отдает обработчик события нажатия на клавиатуре
   */
   var onSuccessKeyDown = function (evt) {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === ESC_KEYCODE) {
       successMessageHide();
     }
   };
