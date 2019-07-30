@@ -6,6 +6,12 @@
 * метод window.getFilteredData доступен для других модулей
 */
 (function () {
+  var PricingMap = {
+    MIDDLE: [10000, 50000],
+    LOW: [0, 10000],
+    HIGH: [50000, Infinity],
+    ANY: [0, Infinity]
+  };
   var filtersForm = document.querySelector('.map__filters');
   var housingTypeFilter = document.querySelector('#housing-type');
   var housingPriceFilter = document.querySelector('#housing-price');
@@ -14,12 +20,6 @@
   var housingFeatures = document.querySelector('#housing-features');
   var filters = {};
   var noFilter = 'any';
-  var pricingMap = {
-    'middle': [10000, 50000],
-    'low': [0, 10000],
-    'high': [50000, Infinity],
-    'any': [0, Infinity]
-  };
   var filterType = 'housing-type';
   var filterPrice = 'housing-price';
   var filterRooms = 'housing-rooms';
@@ -56,7 +56,7 @@
     getFilteredData: function () {
       var data = window.data.dataWithId.filter(function (item) {
         var isFilteredType = filters[filterType] === item.offer.type || filters[filterType] === noFilter;
-        var isFilteredPrice = (pricingMap[filters[filterPrice]][0] <= item.offer.price && pricingMap[filters[filterPrice]][1] >= item.offer.price) || filters[filterPrice] === noFilter;
+        var isFilteredPrice = (PricingMap[filters[filterPrice].toUpperCase()][0] <= item.offer.price && PricingMap[filters[filterPrice].toUpperCase()][1] >= item.offer.price) || filters[filterPrice] === noFilter;
         var isFilteredRooms = filters[filterRooms] === String(item.offer.rooms) || filters[filterRooms] === noFilter;
         var isFilteredGuests = filters[filterGuests] === String(item.offer.guests) || filters[filterGuests] === noFilter;
         var isFilteredFeatures = filterFeatures.every(function (featureName) {
@@ -64,13 +64,13 @@
         });
         return isFilteredType && isFilteredPrice && isFilteredRooms && isFilteredGuests && isFilteredFeatures;
       });
-      return data.slice(0, window.pins.PINS_QUANTITY);
+      return data.slice(0, window.pins.QUANTITY);
     },
 
     /**
      * Сброс фильтров
      */
-    resetFilters: function () {
+    reset: function () {
       filtersForm.reset();
       fillFiltersMapStartStatement();
     }

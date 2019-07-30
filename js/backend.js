@@ -8,6 +8,7 @@
 (function () {
   var URL = 'https://js.dump.academy/keksobooking/data';
   var URL_SEND = 'https://js.dump.academy/keksobooking';
+  var SUCCESS_STATUS = 200;
   window.backend = {
 
     /**
@@ -23,7 +24,7 @@
 
       xhr.addEventListener('load', function () {
         xhr.removeEventListener('error', onConnectionError);
-        if (xhr.status === 200) {
+        if (xhr.status === SUCCESS_STATUS) {
           onLoad(xhr.response);
         } else {
           onError();
@@ -49,7 +50,7 @@
 
       xhr.addEventListener('load', function () {
         xhr.removeEventListener('error', onConnectionError);
-        if (xhr.status === 200) {
+        if (xhr.status === SUCCESS_STATUS) {
           onLoad();
         } else {
           onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);

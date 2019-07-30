@@ -9,28 +9,27 @@
 * Зависит от модуля filter.js
 */
 (function () {
+  var HousingTypesPrices = {
+    PALACE: 10000,
+    FLAT: 1000,
+    HOUSE: 5000,
+    BUNGALO: 0
+  };
   var typeInput = document.querySelector('#type');
   var priceInput = document.querySelector('#price');
   var timeInInput = document.querySelector('#timein');
   var timeOutInput = document.querySelector('#timeout');
-  var HOUSING_TYPES_PRICESES = {
-    'palace': 10000,
-    'flat': 1000,
-    'house': 5000,
-    'bungalo': 0
-  };
   var form = document.querySelector('.ad-form');
   var formFieldsets = form.querySelectorAll('fieldset');
   var mainPin = document.querySelector('.map__pin--main');
   var submitButton = form.querySelector('.ad-form__submit');
+  var roomsQuantityInput = form.querySelector('#room_number');
+  var guestsQuantityInput = form.querySelector('#capacity');
   var compareTypeAndPrice = function (housingType) {
-    var housingMinPrice = HOUSING_TYPES_PRICESES[housingType];
+    var housingMinPrice = HousingTypesPrices[housingType.toUpperCase()];
     priceInput.min = housingMinPrice;
     priceInput.placeholder = housingMinPrice;
   };
-  var roomsQuantityInput = form.querySelector('#room_number');
-  var guestsQuantityInput = form.querySelector('#capacity');
-
   var onFormTypeClick = function (evt) {
     compareTypeAndPrice(evt.target.value);
   };
@@ -116,7 +115,7 @@
     window.showMapsInactiveStatement();
     window.cards.hideOfferInfo();
     window.hideUploadedFiles();
-    window.filter.resetFilters();
+    window.filter.reset();
     onSuccessDataSend();
   };
 

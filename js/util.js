@@ -5,6 +5,8 @@
 */
 (function () {
   var DEBOUNCE_INTERVAL = 300;
+  var MAIN_PIN_WIDTH = 65;
+  var MAIN_PIN_HEIGHT = 87;
   var lastTimeout;
 
   window.util = {
@@ -34,8 +36,6 @@
     * @param {any} top - координата по y верхнего левого края пина
     */
     setAddress: function (left, top) {
-      var MAIN_PIN_WIDTH = 65;
-      var MAIN_PIN_HEIGHT = 87;
       var addressInput = document.querySelector('#address');
       var mainPinX = parseInt(left, 10) + Math.round(MAIN_PIN_WIDTH / 2);
       var mainPinY = parseInt(top, 10) + Math.round(MAIN_PIN_HEIGHT);
