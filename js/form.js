@@ -9,16 +9,16 @@
 * Зависит от модуля filter.js
 */
 (function () {
-  var typeInput = document.querySelector('#type');
-  var priceInput = document.querySelector('#price');
-  var timeInInput = document.querySelector('#timein');
-  var timeOutInput = document.querySelector('#timeout');
   var HousingTypesPrices = {
     PALACE: 10000,
     FLAT: 1000,
     HOUSE: 5000,
     BUNGALO: 0
   };
+  var typeInput = document.querySelector('#type');
+  var priceInput = document.querySelector('#price');
+  var timeInInput = document.querySelector('#timein');
+  var timeOutInput = document.querySelector('#timeout');
   var form = document.querySelector('.ad-form');
   var formFieldsets = form.querySelectorAll('fieldset');
   var mainPin = document.querySelector('.map__pin--main');

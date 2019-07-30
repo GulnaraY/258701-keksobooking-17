@@ -6,6 +6,12 @@
 * метод window.getFilteredData доступен для других модулей
 */
 (function () {
+  var pricingMap = {
+    'middle': [10000, 50000],
+    'low': [0, 10000],
+    'high': [50000, Infinity],
+    'any': [0, Infinity]
+  };
   var filtersForm = document.querySelector('.map__filters');
   var housingTypeFilter = document.querySelector('#housing-type');
   var housingPriceFilter = document.querySelector('#housing-price');
@@ -14,12 +20,6 @@
   var housingFeatures = document.querySelector('#housing-features');
   var filters = {};
   var noFilter = 'any';
-  var pricingMap = {
-    'middle': [10000, 50000],
-    'low': [0, 10000],
-    'high': [50000, Infinity],
-    'any': [0, Infinity]
-  };
   var filterType = 'housing-type';
   var filterPrice = 'housing-price';
   var filterRooms = 'housing-rooms';

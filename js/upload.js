@@ -3,13 +3,13 @@
 
 (function () {
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+  var DEFAULT_AVATAR = 'img/muffin-grey.svg';
   var fileChooserAvatar = document.querySelector('.ad-form__field .ad-form-header__input');
   var previewAvatar = document.querySelector('.ad-form-header__preview img');
   var fileChooserPhoto = document.querySelector('.ad-form__upload .ad-form__input');
   var photosContainer = document.querySelector('.ad-form__photo-container');
   var priviewPhotoContainer = document.querySelector('.ad-form__photo');
   var isFirstPhotoChoosing = false;
-  var DEFAULT_AVATAR = 'img/muffin-grey.svg';
 
   fileChooserAvatar.addEventListener('change', function () {
     var file = fileChooserAvatar.files[0];

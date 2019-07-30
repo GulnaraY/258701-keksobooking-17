@@ -6,7 +6,6 @@
 * метод window.showMapInactiveStatement доступен для других модулей
 */
 (function () {
-  var isMapActive = false;
   var MIN_X_MAIN = 0;
   var MAIN_PIN_WIDTH = 65;
   var MAX_X_MAIN = 1200 - MAIN_PIN_WIDTH;
@@ -14,6 +13,7 @@
   var MAX_Y_MAIN = 630;
   var MAIN_PIN_LEFT = 570;
   var MAIN_PIN_TOP = 375;
+  var isMapActive = false;
   var form = document.querySelector('.ad-form');
   var formFieldsets = form.querySelectorAll('fieldset');
   var map = document.querySelector('.map');
