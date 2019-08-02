@@ -25,6 +25,7 @@
   var submitButton = form.querySelector('.ad-form__submit');
   var roomsQuantityInput = form.querySelector('#room_number');
   var guestsQuantityInput = form.querySelector('#capacity');
+  var resetLink = form.querySelector('.ad-form__reset');
   var compareTypeAndPrice = function (housingType) {
     var housingMinPrice = HousingTypesPrices[housingType.toUpperCase()];
     priceInput.min = housingMinPrice;
@@ -147,5 +148,14 @@
     evt.preventDefault();
   };
 
+  var onResetLinkClick = function () {
+    showFormsInactiveStatement();
+    window.showMapsInactiveStatement();
+    window.cards.hideOfferInfo();
+    window.hideUploadedFiles();
+    window.filter.reset();
+  };
+
   form.addEventListener('submit', onFormSubmit);
+  resetLink.addEventListener('click', onResetLinkClick);
 })();
